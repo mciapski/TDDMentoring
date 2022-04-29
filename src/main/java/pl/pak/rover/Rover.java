@@ -12,35 +12,19 @@ public class Rover {
 
   public void moveForward() {
     switch (coordinates.getDirection()) {
-      case 'N' -> coordinates = new Coordinates(coordinates.getX()
-          , coordinates.getY() + 1
-          , coordinates.getDirection());
-      case 'S' -> coordinates = new Coordinates(coordinates.getX()
-          , coordinates.getY() - 1
-          , coordinates.getDirection());
-      case 'E' -> coordinates = new Coordinates(coordinates.getX() + 1
-          , coordinates.getY()
-          , coordinates.getDirection());
-      case 'W' -> coordinates = new Coordinates(coordinates.getX() - 1
-          , coordinates.getY()
-          , coordinates.getDirection());
+      case 'N' -> coordinates = coordinates.withY(coordinates.getY()+1);
+      case 'S' -> coordinates = coordinates.withY(coordinates.getY()-1);
+      case 'E' -> coordinates = coordinates.withX(coordinates.getX()+1);
+      case 'W' -> coordinates = coordinates.withX(coordinates.getX()-1);
     }
   }
 
   public void moveBackward() {
     switch (coordinates.getDirection()) {
-      case 'N' -> coordinates = new Coordinates(coordinates.getX()
-          , coordinates.getY() - 1
-          , coordinates.getDirection());
-      case 'S' -> coordinates = new Coordinates(coordinates.getX()
-          , coordinates.getY() + 1
-          , coordinates.getDirection());
-      case 'E' -> coordinates = new Coordinates(coordinates.getX() - 1
-          , coordinates.getY()
-          , coordinates.getDirection());
-      case 'W' -> coordinates = new Coordinates(coordinates.getX() + 1
-          , coordinates.getY()
-          , coordinates.getDirection());
+      case 'N' -> coordinates = coordinates.withY(coordinates.getY()-1);
+      case 'S' -> coordinates = coordinates.withY(coordinates.getY()+1);
+      case 'E' -> coordinates = coordinates.withX(coordinates.getX()-1);
+      case 'W' -> coordinates = coordinates.withX(coordinates.getX()+1);
     }
   }
 
