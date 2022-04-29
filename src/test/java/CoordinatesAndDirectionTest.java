@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pl.pak.rover.Coordinates;
 import pl.pak.rover.Rover;
@@ -13,6 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 //1. Obsłużyć ruch niezależnie od stron  w którą jest obrócony
 //2. Obsłużyć ruch do tyłu
 //3. Refactoring
+//4. Te same testy wer. Spock
 
 public class CoordinatesAndDirectionTest {
   @Test
@@ -37,78 +39,36 @@ public class CoordinatesAndDirectionTest {
         .hasMessage("Unknown command: u");
   }
 
-  @Test
-  public void movesOneStepForwardWhenReceivedFCommandInNDirections(){
+  @ParameterizedTest
+  @CsvSource({
+      "N,0,1",
+      "S,0,-1",
+      "E,1,0",
+      "W,-1,0"
+  })
+  public void movesOneStepForwardWhenReceivedFCommand(char direction,double resultX,double resultY){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, 'N'));
+    var rover = new Rover(new Coordinates(0.0, 0.0, direction));
     //when
     rover.receiveCommands('F');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, 'N'));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(resultX, resultY, direction));
   }
-  @Test
-  public void movesOneStepForwardWhenReceivedFCommandInSDirections(){
+  @ParameterizedTest
+  @CsvSource({
+      "N,0,-1",
+      "S,0,1",
+      "E,-1,0",
+      "W,1,0"
+  })
+  public void movesOneStepBackwardWhenReceivedBCommand(char direction,double resultX,double resultY){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, 'S'));
+    var rover = new Rover(new Coordinates(0.0, 0.0, direction));
     //when
-    rover.receiveCommands('F');
+    rover.receiveCommands('B');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, -1.0, 'S'));
-  }
-  @Test
-  public void movesOneStepForwardWhenReceivedFCommandInEDirection(){
-    //given
-    var rover = new Rover(new Coordinates(0.0,0.0,'E'));
-    //when
-    rover.receiveCommands('F');
-    //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 0.0, 'E'));
-  }
-  @Test
-  public void movesOneStepForwardWhenReceivedFCommandInWDirection(){
-    //given
-    var rover = new Rover(new Coordinates(0.0,0.0,'W'));
-    //when
-    rover.receiveCommands('F');
-    //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(-1.0, 0.0, 'W'));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(resultX, resultY, direction));
   }
 
-  @Test
-  public void movesOneStepForwardWhenReceivedBCommandInNDirections(){
-    //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, 'N'));
-    //when
-    rover.receiveCommands('B');
-    //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, -1.0, 'N'));
-  }
-  @Test
-  public void movesOneStepForwardWhenReceivedWCommandInSDirections(){
-    //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, 'S'));
-    //when
-    rover.receiveCommands('B');
-    //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, 'S'));
-  }
-  @Test
-  public void movesOneStepForwardWhenReceivedWCommandInEDirection(){
-    //given
-    var rover = new Rover(new Coordinates(0.0,0.0,'E'));
-    //when
-    rover.receiveCommands('B');
-    //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(-1.0, 0.0, 'E'));
-  }
-  @Test
-  public void movesOneStepForwardWhenReceivedWCommandInWDirection(){
-    //given
-    var rover = new Rover(new Coordinates(0.0,0.0,'W'));
-    //when
-    rover.receiveCommands('B');
-    //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 0.0, 'W'));
-  }
 
 }
