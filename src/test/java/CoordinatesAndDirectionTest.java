@@ -25,7 +25,6 @@ public class CoordinatesAndDirectionTest {
     var rover = new Rover(coordinates);
     //then
     assertThat(rover.getCoordinates()).isEqualTo(coordinates);
-
     assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 1.0, 'N'));
   }
 
@@ -68,6 +67,16 @@ public class CoordinatesAndDirectionTest {
     rover.receiveCommands('B');
     //then
     assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(resultX, resultY, direction));
+  }
+
+  @Test
+  public void receivesMultipleCommandsAsAnArray(){
+    //given
+    var rover = new Rover(new Coordinates(0.0, 0.0, 'N'));
+    //when
+    rover.receiveCommands('B','F','F');
+    //then
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0,1.0,'N'));
   }
 
 

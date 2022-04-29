@@ -29,12 +29,15 @@ public class Rover {
   }
 
   public void receiveCommands(char... commands) {
-    if (commands[0] == 'F') {
-      moveForward();
-    } else if (commands[0] == 'B') {
-      moveBackward();
-    } else {
-      throw new UnknownCommandException(commands[0]);
+    for (char aCommand: commands) {
+      if (aCommand == 'F') {
+        moveForward();
+      } else if (aCommand == 'B') {
+        moveBackward();
+      } else {
+        throw new UnknownCommandException(commands[0]);
+      }
     }
+
   }
 }
