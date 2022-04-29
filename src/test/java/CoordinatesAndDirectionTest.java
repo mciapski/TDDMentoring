@@ -11,10 +11,13 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 //Zadanie domowe:
 
-//1. Obsłużyć ruch niezależnie od stron  w którą jest obrócony
-//2. Obsłużyć ruch do tyłu
-//3. Refactoring
+//1. Obsłużyć ruch niezależnie od stron  w którą jest obrócony DONE
+//2. Obsłużyć ruch do tyłu  DONE
+//3. Refactoring INWORK
 //4. Te same testy wer. Spock
+//5. Dokończyć directiontest na wszystkie kierunki
+//6. Zrefaktorować kod aby używać direction
+//7. Test do wyjątku UnknownDirectionException
 
 public class CoordinatesAndDirectionTest {
   @Test
