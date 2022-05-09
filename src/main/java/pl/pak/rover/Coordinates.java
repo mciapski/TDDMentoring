@@ -12,6 +12,8 @@ public class Coordinates {
 
   double x;
   double y;
-  char direction;
+  char directionInChar;
+
+
 
 }

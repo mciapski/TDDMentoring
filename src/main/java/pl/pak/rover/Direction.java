@@ -10,13 +10,14 @@ public enum Direction {
 
   private final char direction;
   Direction(char direction) {
+
     this.direction = direction;
   }
 
-  public static Direction of(char directionChar) {
+  public static Direction of(char directionInChar) {
     return Arrays.stream(values())
-        .filter(direction1 -> direction1.direction==directionChar)
+        .filter(direction1 -> direction1.direction==directionInChar)
         .findFirst()
-        .orElseThrow(()->new UnknownDirectionException(directionChar));
+        .orElseThrow(()->new UnknownDirectionException(directionInChar));
   }
 }

@@ -3,6 +3,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import pl.pak.rover.Coordinates;
+import pl.pak.rover.Direction;
 import pl.pak.rover.Rover;
 import pl.pak.rover.UnknownCommandException;
 
@@ -15,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 //2. Obsłużyć ruch do tyłu  DONE
 //3. Refactoring INWORK
 //4. Te same testy wer. Spock
-//5. Dokończyć directiontest na wszystkie kierunki
-//6. Zrefaktorować kod aby używać direction
-//7. Test do wyjątku UnknownDirectionException
+//5. Dokończyć directiontest na wszystkie kierunki DONE
+//6. Zrefaktorować kod aby używać direction DONE
+//7. Test do wyjątku UnknownDirectionException DONE
 
 public class CoordinatesAndDirectionTest {
   @Test
