@@ -25,7 +25,8 @@ class CoordinatesAndDIrectionTestSpock extends Specification{
 
         then:
 
-        thrown UnknownCommandException
+       UnknownCommandException un = thrown()
+        un.message == 'Unknown command: u'
 
     }
 }
