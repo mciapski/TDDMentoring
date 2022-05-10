@@ -42,6 +42,12 @@
             <version>${org.spockframework.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${org.spockframework.version}</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
         <dependency>
