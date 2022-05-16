@@ -1,22 +1,24 @@
 import pl.pak.rover.Coordinates
+import pl.pak.rover.Direction
 import pl.pak.rover.Rover
 import pl.pak.rover.UnknownCommandException
 import spock.lang.Specification
 
+import static pl.pak.rover.Direction.East
+import static pl.pak.rover.Direction.North
+import static pl.pak.rover.Direction.South
+import static pl.pak.rover.Direction.West
+
 class CoordinatesAndDirectionTestSpock extends Specification{
     def "receiveStartingCoordinates" (){
-        when:
 
-        def results = new Rover(inputCoordinates).getCoordinates()
-        then:
-        def expected = receivedCoordinates
-
-        results==expected
+        expect:
+        expectedCoordinates==new Rover(inputCoordinates).getCoordinates()
 
         where:
-        inputCoordinates                             || receivedCoordinates
-        new Coordinates(1.0, 1.0, 'N' as char)       || new Coordinates(1.0, 1.0, 'N' as char)
-        new Coordinates(2.0, 1.0, 'N' as char)       || new Coordinates(2.0, 1.0, 'N' as char)
+        inputCoordinates                             || expectedCoordinates
+        new Coordinates(1.0, 1.0, North)             || new Coordinates(1.0, 1.0, North)
+        new Coordinates(2.0, 1.0, North)       || new Coordinates(2.0, 1.0, North)
     }
 
     def "throwsAnExceptionWhenReceivesUnknownCommand"(){
@@ -32,44 +34,45 @@ class CoordinatesAndDirectionTestSpock extends Specification{
 
     def "movesOneStepForwardWhenReceivedFCommand" (){
         given:
-        var rover = new Rover(new Coordinates(0.0,0.0,direction as char))
-        rover.receiveCommands('F' as char)
+        var rover = new Rover(new Coordinates(0.0,0.0,direction))
+
 
         when:
+        rover.receiveCommands('F' as char)
         def results = rover.getCoordinates()
 
         then:
-        def expected = new Rover(new Coordinates(resultX as int, resultY as int, direction as char))
-                .getCoordinates()
+        def expected = new Coordinates(resultX, resultY, direction)
+
 
         results == expected
 
         where:
         direction || resultX || resultY
-        'N'       || 0.0     || 1.0
-        'S'       || 0.0     || -1.0
-        'E'       || 1.0     || 0.0
-        'W'       || -1.0    || 0.0
+        North       || 0.0     || 1.0
+        South       || 0.0     || -1.0
+        East       || 1.0     || 0.0
+        West       || -1.0    || 0.0
     }
     def "movesOneStepBackwardWhenReceivedBCommand" (){
         given:
-        var rover = new Rover(new Coordinates(0.0,0.0,direction as char))
-        rover.receiveCommands('B' as char)
+        var rover = new Rover(new Coordinates(0.0,0.0,direction))
+
 
         when:
         def results = rover.getCoordinates()
-
+        rover.receiveCommands('B' as char)
         then:
-        def expected = new Rover(new Coordinates(resultX as int, resultY as int, direction as char))
-                .getCoordinates()
+        def expected = new Coordinates(resultX, resultY, direction)
+
 
         results == expected
 
         where:
         direction || resultX || resultY
-        'N'       || 0.0     || -1.0
-        'S'       || 0.0     || 1.0
-        'E'       || -1.0    || 0.0
-        'W'       || 1.0     || 0.0
+        North       || 0.0     || -1.0
+        South       || 0.0     || 1.0
+        East       || -1.0    || 0.0
+        West       || 1.0     || 0.0
     }
 }

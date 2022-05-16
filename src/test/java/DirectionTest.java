@@ -8,6 +8,7 @@ import pl.pak.rover.UnknownDirectionException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static pl.pak.rover.Direction.North;
 
 public class DirectionTest {
 
@@ -25,7 +26,7 @@ public class DirectionTest {
   })
   public void createsDirectionsFromChars(char input, String direction) {
     //expected
-    assertThat(Direction.of('N')).isEqualTo(Direction.North);
+    assertThat(Direction.of('N')).isEqualTo(North);
   }
 
   @ParameterizedTest
