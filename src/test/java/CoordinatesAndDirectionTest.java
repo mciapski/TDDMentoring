@@ -1,10 +1,13 @@
+import groovyjarjarantlr4.v4.runtime.RuleDependencies;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pl.pak.rover.Coordinates;
 import pl.pak.rover.Direction;
 import pl.pak.rover.Rover;
 import pl.pak.rover.UnknownCommandException;
+import pl.pak.rover.commands.Command;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -22,7 +25,7 @@ import static pl.pak.rover.Direction.North;
 //8. MoveBackward obslużyć tak jak MoveForward
 //9. Przenieść testy ruchów podstawowych do klas testujących
 //10. Obsłużyć obroty wg.TDD
-//11. Refaktor receiveCOmmands w Rover do postaci strumienia(for)
+//11. Refaktor receiveCommands w Rover do postaci strumienia(for)
 
 public class CoordinatesAndDirectionTest {
   @Test
@@ -36,12 +39,13 @@ public class CoordinatesAndDirectionTest {
     assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 1.0, North));
   }
 
+
   @Test
   public void throwsAnExceptionWhenReceivesUnknownCommand(){
     //given
-    var rover = new Rover(new Coordinates(1.0, 1.0, North));
+    var rover = new Rover(new Coordinates(0.0, 0.0, North));
     //expect
-    assertThatThrownBy(()->rover.receiveCommands('u'))
+    assertThatThrownBy(()-> rover.receiveCommands('u'))
         .isInstanceOf(UnknownCommandException.class)
         .hasMessage("Unknown command: u");
   }

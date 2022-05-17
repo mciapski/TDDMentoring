@@ -32,8 +32,10 @@ public abstract class Command {
 
   public static Command of(char commandChar) {
 
-    return Optional.ofNullable(availableCommands.get(commandChar))
-        .orElseThrow(()->new UnknownCommandException(commandChar)).get();
+    int i = characterList.indexOf(commandChar);
+
+    return Optional.ofNullable(availableCommands.get(characterList).get(i))
+        .orElseThrow(() -> new UnknownCommandException(commandChar)).get();
 
 
   }
