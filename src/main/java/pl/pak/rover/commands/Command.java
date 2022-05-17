@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 // Pattern Command
 // Wyniesienie logiki biznesowej z Rover
@@ -23,14 +24,17 @@ public abstract class Command {
   //     * @return a result
   //     */
   //    T get();
-  private static final Map<Character, Supplier<Command>> availableCommands = Map.of(
-      'F', MoveForward::new
-  );
+  private static final List<Character> characterList = List.of('F', 'B');
+  private static final List<Supplier<Command>> commandList = List.of(MoveForward::new, MoveBackward::new);
+
+  private static final Map<List<Character>, List<Supplier<Command>>> availableCommands = Map.of(
+      characterList, commandList);
 
   public static Command of(char commandChar) {
+
     return Optional.ofNullable(availableCommands.get(commandChar))
-        .orElseThrow(()->new UnknownCommandException(commandChar))
-        .get();
+        .orElseThrow(()->new UnknownCommandException(commandChar)).get();
+
 
   }
 
