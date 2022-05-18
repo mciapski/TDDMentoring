@@ -24,18 +24,25 @@ public abstract class Command {
   //     * @return a result
   //     */
   //    T get();
+  public static int indexValue;
   private static final List<Character> characterList = List.of('F', 'B');
   private static final List<Supplier<Command>> commandList = List.of(MoveForward::new, MoveBackward::new);
-
   private static final Map<List<Character>, List<Supplier<Command>>> availableCommands = Map.of(
       characterList, commandList);
 
+
   public static Command of(char commandChar) {
 
-    int i = characterList.indexOf(commandChar);
+    if (characterList.contains(commandChar)) {
+      indexValue = characterList.indexOf(commandChar);
+      return availableCommands.get(characterList).get(indexValue).get();
 
-    return Optional.ofNullable(availableCommands.get(characterList).get(i))
-        .orElseThrow(() -> new UnknownCommandException(commandChar)).get();
+    } else {
+      throw new UnknownCommandException(commandChar);
+    }
+
+//    return Optional.ofNullable(availableCommands.get(characterList).get(indexValue))
+//        .orElseThrow(()->new UnknownCommandException(commandChar)).get();
 
 
   }
