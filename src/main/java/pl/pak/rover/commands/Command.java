@@ -32,11 +32,9 @@ public abstract class Command {
 
 
   public static Command of(char commandChar) {
-
     if (characterList.contains(commandChar)) {
       indexValue = characterList.indexOf(commandChar);
       return availableCommands.get(characterList).get(indexValue).get();
-
     } else {
       throw new UnknownCommandException(commandChar);
     }
