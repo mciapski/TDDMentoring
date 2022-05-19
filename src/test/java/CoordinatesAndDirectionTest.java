@@ -13,6 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static pl.pak.rover.Direction.North;
+import static pl.pak.rover.Direction.West;
 
 
 //Zadanie domowe:
@@ -26,8 +27,8 @@ import static pl.pak.rover.Direction.North;
 //7. Test do wyjątku UnknownDirectionException DONE
 //8. MoveBackward obslużyć tak jak MoveForward DONE
 //9. Przenieść testy ruchów podstawowych do klas testujących DONE
-//10. Obsłużyć obroty wg.TDD
-//11. Refaktor receiveCommands w Rover do postaci strumienia(for)
+//10. Obsłużyć obroty wg.TDD DONE
+//11. Refaktor receiveCommands w Rover do postaci strumienia(for) DONE
 
 
 public class CoordinatesAndDirectionTest {
@@ -59,9 +60,9 @@ public class CoordinatesAndDirectionTest {
     //given
     var rover = new Rover(new Coordinates(0.0, 0.0, North));
     //when
-    rover.receiveCommands('B', 'F', 'F');
+    rover.receiveCommands('B', 'F', 'F','L');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, North));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, West));
   }
 
 
