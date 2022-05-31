@@ -4,6 +4,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.Extensions;
 import pl.pak.rover.*;
 import pl.pak.rover.commands.Command;
+import pl.pak.rover.environment.Grid;
 
 import java.io.InvalidObjectException;
 
@@ -12,8 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static pl.pak.rover.Direction.North;
-import static pl.pak.rover.Direction.West;
+import static pl.pak.rover.Direction.*;
 
 
 //Zadanie domowe:
@@ -61,21 +61,40 @@ public class CoordinatesAndDirectionTest {
     //given
     var rover = new Rover(new Coordinates(0.0, 0.0, North));
     //when
-    rover.receiveCommands('B', 'F', 'F','L');
+    rover.receiveCommands('F', 'F','L');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, West));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 2.0, West));
   }
   @Test
   public void doesntMoveWhenAnyOfCommandIsIncorrect() {
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, North));
+    var rover = new Rover(new Coordinates(0.0, 3.0, North));
     //when
-    var throwable = catchThrowable(()->rover.receiveCommands('B', 'F', 'F','U','L'));
+    var throwable = catchThrowable(()->rover.receiveCommands( 'F', 'F','U','L'));
     //then
     assertThat(throwable)
         .isInstanceOf(UnknownCommandException.class)
         .hasMessage("Unknown command: U");
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 0.0, North));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 3.0, North));
+  }
+
+  @Test
+  public void receivesCharacterArray(){
+    //given
+    var rover = new Rover(new Coordinates(0.0, 0.0, North));
+    //when
+    rover.receiveCommands('F','F','F','F');
+    //then
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0,4.0,North));
+  }
+  @Test
+  public void detectObstacleAndStayOneMoveBeforeIt(){
+    //given
+    var rover = new Rover(new Coordinates(0.0, 0.0, East));
+    //when
+    rover.receiveCommands('F','F','F');
+    //then
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(2.0, 0.0, East));
   }
 
 

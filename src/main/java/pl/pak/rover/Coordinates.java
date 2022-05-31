@@ -9,7 +9,6 @@ import java.util.Objects;
 @With
 public class Coordinates {
 
-
   double x;
   double y;
   Direction direction;
