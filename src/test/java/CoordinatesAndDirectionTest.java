@@ -88,13 +88,22 @@ public class CoordinatesAndDirectionTest {
     assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0,4.0,North));
   }
   @Test
-  public void detectObstacleAndStayOneMoveBeforeIt(){
+  public void detectObstacleInForwardAndStayOneMoveBeforeItInEastDirection(){
     //given
     var rover = new Rover(new Coordinates(0.0, 0.0, East));
     //when
     rover.receiveCommands('F','F','F');
     //then
     assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 0.0, East));
+  }
+  @Test
+  public void detectObstacleAndStayOneMoveBeforeItInSouthDirection(){
+    //given
+    var rover = new Rover(new Coordinates(0.0, 0.0, East));
+    //when
+    rover.receiveCommands('L','F','F');
+    //then
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, North));
   }
 
 

@@ -27,18 +27,17 @@ public class Rover {
 
     var commandsList = Stream.of(commands).map(Command::of).collect(Collectors.toList());
     val coordinateList = new ArrayList<Coordinates>();
-    coordinateList.add(coordinates);
-    for (Command command : commandsList) {
+    for (int i=0; i<commandsList.size()+1;i++) {
       Xchecker = (int) coordinates.getX();
       Ychecker = (int) coordinates.getY();
       char field = Grid.gridOfMap[Ychecker][Xchecker];
 
       if (field == 'o') {
         System.out.println(sensorMessage + Ychecker + ", " + Xchecker);
-        coordinates=coordinateList.get(commandsList.size()-2);
+        coordinates=coordinateList.get(i-2);
         break;
       } else {
-        coordinates = command.execute(coordinates);
+        coordinates = commandsList.get(i).execute(coordinates);
         coordinateList.add(coordinates);
 
       }

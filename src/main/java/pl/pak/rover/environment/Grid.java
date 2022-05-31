@@ -10,7 +10,7 @@ public class Grid {
   public static char[][] gridOfMap = {
       {'x','x','o','o','x'},
       {'x','o','x','x','x'},
-      {'x','x','o','x','x'},
+      {'o','x','o','x','x'},
       {'x','o','x','x','x'},
   };
 
