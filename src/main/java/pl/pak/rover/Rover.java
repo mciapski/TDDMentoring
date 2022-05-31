@@ -27,6 +27,7 @@ public class Rover {
 
     var commandsList = Stream.of(commands).map(Command::of).collect(Collectors.toList());
     val coordinateList = new ArrayList<Coordinates>();
+    coordinateList.add(coordinates);
     for (Command command : commandsList) {
       Xchecker = (int) coordinates.getX();
       Ychecker = (int) coordinates.getY();
@@ -34,11 +35,15 @@ public class Rover {
 
       if (field == 'o') {
         System.out.println(sensorMessage + Ychecker + ", " + Xchecker);
+        coordinates=coordinateList.get(commandsList.size()-2);
         break;
       } else {
         coordinates = command.execute(coordinates);
+        coordinateList.add(coordinates);
+
       }
     }
+    System.out.println(coordinateList);
   }
 
 // 2.

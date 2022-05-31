@@ -94,7 +94,7 @@ public class CoordinatesAndDirectionTest {
     //when
     rover.receiveCommands('F','F','F');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(2.0, 0.0, East));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 0.0, East));
   }
 
 
