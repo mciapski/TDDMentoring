@@ -61,9 +61,9 @@ public class CoordinatesAndDirectionTest {
     //given
     var rover = new Rover(new Coordinates(0.0, 0.0, North));
     //when
-    rover.receiveCommands('F', 'F','L');
+    rover.receiveCommands('F','L');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 2.0, West));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, West));
   }
   @Test
   public void doesntMoveWhenAnyOfCommandIsIncorrect() {
@@ -81,11 +81,11 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void receivesCharacterArray(){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, North));
+    var rover = new Rover(new Coordinates(0.0, 0.0, East));
     //when
-    rover.receiveCommands('F','F','F','F');
+    rover.receiveCommands('F','B');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0,4.0,North));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0,0.0,East));
   }
   @Test
   public void detectObstacleInForwardAndStayOneMoveBeforeItInEastDirection(){

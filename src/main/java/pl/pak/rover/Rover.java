@@ -26,23 +26,26 @@ public class Rover {
     String sensorMessage = "Alert! On location(x,y): ";
 
     var commandsList = Stream.of(commands).map(Command::of).collect(Collectors.toList());
-    val coordinateList = new ArrayList<Coordinates>();
-    for (int i=0; i<commandsList.size()+1;i++) {
-      Xchecker = (int) coordinates.getX();
-      Ychecker = (int) coordinates.getY();
+    List<Coordinates> coordinateList = new ArrayList<>();
+    for (Command command:commandsList) {
+      coordinates=command.execute(coordinates);
+      coordinateList.add(coordinates);
+    }
+    for (int i=0; i<coordinateList.size();i++) {
+      Xchecker = (int) coordinateList.get(i).getX();
+      Ychecker = (int) coordinateList.get(i).getY();
       char field = Grid.gridOfMap[Ychecker][Xchecker];
 
       if (field == 'o') {
-        System.out.println(sensorMessage + Ychecker + ", " + Xchecker);
-        coordinates=coordinateList.get(i-2);
+        System.out.println(sensorMessage + Xchecker + ", " + Ychecker);
+        coordinates=coordinateList.get(i-1);
         break;
       } else {
-        coordinates = commandsList.get(i).execute(coordinates);
-        coordinateList.add(coordinates);
+        coordinates = coordinateList.get(i);
 
       }
     }
-    System.out.println(coordinateList);
+    System.out.println(coordinates);
   }
 
 // 2.
