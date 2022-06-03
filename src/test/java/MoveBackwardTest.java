@@ -2,7 +2,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import pl.pak.rover.Coordinates;
 import pl.pak.rover.Direction;
+import pl.pak.rover.ObstacleChecker;
 import pl.pak.rover.Rover;
+import pl.pak.rover.environment.Grid;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +18,7 @@ public class MoveBackwardTest {
   })
   public void movesOneStepBackwardWhenReceivedBCommand(Direction direction, double resultX, double resultY){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, direction));
+    var rover = new Rover(new Coordinates(0.0, 0.0, direction),new ObstacleChecker(new Grid()));
     //when
     rover.receiveCommands('B');
     //then

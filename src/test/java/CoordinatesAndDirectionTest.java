@@ -38,7 +38,7 @@ public class CoordinatesAndDirectionTest {
     //given
     var coordinates = new Coordinates(1.0, 1.0, North);
     //when
-    var rover = new Rover(coordinates);
+    var rover = new Rover(coordinates,new ObstacleChecker(new Grid()));
     //then
     assertThat(rover.getCoordinates()).isEqualTo(coordinates);
     assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 1.0, North));
@@ -47,7 +47,7 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void throwsAnExceptionWhenReceivesUnknownCommand() {
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, North));
+    var rover = new Rover(new Coordinates(0.0, 0.0, North),new ObstacleChecker(new Grid()));
     //expect
 
     assertThatThrownBy(() -> rover.receiveCommands('u'))
@@ -59,7 +59,7 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void receivesMultipleCommandsAsAnArray() {
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, North));
+    var rover = new Rover(new Coordinates(0.0, 0.0, North),new ObstacleChecker(new Grid()));
     //when
     rover.receiveCommands('F','L');
     //then
@@ -68,7 +68,7 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void doesntMoveWhenAnyOfCommandIsIncorrect() {
     //given
-    var rover = new Rover(new Coordinates(0.0, 3.0, North));
+    var rover = new Rover(new Coordinates(0.0, 3.0, North),new ObstacleChecker(new Grid()));
     //when
     var throwable = catchThrowable(()->rover.receiveCommands( 'F', 'F','U','L'));
     //then
@@ -81,7 +81,7 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void receivesCharacterArray(){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, East));
+    var rover = new Rover(new Coordinates(0.0, 0.0, East),new ObstacleChecker(new Grid()));
     //when
     rover.receiveCommands('F','B');
     //then
@@ -90,7 +90,7 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void detectObstacleInForwardAndStayOneMoveBeforeItInEastDirection(){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, East));
+    var rover = new Rover(new Coordinates(0.0, 0.0, East),new ObstacleChecker(new Grid()));
     //when
     rover.receiveCommands('F','F','F');
     //then
@@ -99,7 +99,7 @@ public class CoordinatesAndDirectionTest {
   @Test
   public void detectObstacleAndStayOneMoveBeforeItInSouthDirection(){
     //given
-    var rover = new Rover(new Coordinates(0.0, 0.0, East));
+    var rover = new Rover(new Coordinates(0.0, 0.0, East),new ObstacleChecker(new Grid()));
     //when
     rover.receiveCommands('L','F','F');
     //then

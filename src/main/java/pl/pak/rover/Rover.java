@@ -19,33 +19,18 @@ public class Rover {
   private Coordinates coordinates;
 //  private Coordinates sensorCoordinates =coordinates;
 
+  private ObstacleChecker obstacleChecker;
 
   public void receiveCommands(Character... commands) {
-    int Xchecker = 0;
-    int Ychecker = 0;
-    String sensorMessage = "Alert! On location(x,y): ";
 
     var commandsList = Stream.of(commands).map(Command::of).collect(Collectors.toList());
-    List<Coordinates> coordinateList = new ArrayList<>();
-    for (Command command:commandsList) {
-      coordinates=command.execute(coordinates);
-      coordinateList.add(coordinates);
-    }
-    for (int i=0; i<coordinateList.size();i++) {
-      Xchecker = (int) coordinateList.get(i).getX();
-      Ychecker = (int) coordinateList.get(i).getY();
-      char field = Grid.gridOfMap[Ychecker][Xchecker];
-
-      if (field == 'o') {
-        System.out.println(sensorMessage + Xchecker + ", " + Ychecker);
-        coordinates=coordinateList.get(i-1);
+    for (Command command : commandsList) {
+      if (obstacleChecker.checkObstacle(coordinates)) {
         break;
-      } else {
-        coordinates = coordinateList.get(i);
-
       }
+      coordinates = command.execute(coordinates);
     }
-    System.out.println(coordinates);
+
   }
 
 // 2.
