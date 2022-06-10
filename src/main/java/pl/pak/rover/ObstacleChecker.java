@@ -10,6 +10,11 @@ public class ObstacleChecker {
 
 
   public boolean checkObstacle(Coordinates coordinates) {
-    return grid.gridOfMap[(int) coordinates.getY()][(int) coordinates.getX()] == 'o';
+
+    int coordinateYafterInversion = grid.gridOfMap.length-1-(int)coordinates.getY();
+
+
+
+    return grid.gridOfMap[coordinateYafterInversion][(int) coordinates.getX()] == 'o';
   }
 }

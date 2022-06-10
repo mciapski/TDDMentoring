@@ -30,6 +30,8 @@ import static pl.pak.rover.Direction.*;
 //10. Obsłużyć obroty wg.TDD DONE
 //11. Refaktor receiveCommands w Rover do postaci strumienia(for) DONE
 //12. Napisać klasy testujące dla obrotów
+//13. Dokończyć testy
+
 
 
 public class CoordinatesAndDirectionTest {
@@ -61,9 +63,9 @@ public class CoordinatesAndDirectionTest {
     //given
     var rover = new Rover(new Coordinates(0.0, 0.0, North),new ObstacleChecker(new Grid()));
     //when
-    rover.receiveCommands('F','L');
+    rover.receiveCommands('R','F');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(0.0, 1.0, West));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 0.0, East));
   }
   @Test
   public void doesntMoveWhenAnyOfCommandIsIncorrect() {
@@ -94,7 +96,7 @@ public class CoordinatesAndDirectionTest {
     //when
     rover.receiveCommands('F','F','F');
     //then
-    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(1.0, 0.0, East));
+    assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(2.0, 0.0, East));
   }
   @Test
   public void detectObstacleAndStayOneMoveBeforeItInSouthDirection(){
