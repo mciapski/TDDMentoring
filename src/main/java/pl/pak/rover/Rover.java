@@ -25,12 +25,33 @@ public class Rover {
 
     var commandsList = Stream.of(commands).map(Command::of).collect(Collectors.toList());
     for (Command command : commandsList) {
+
       if (obstacleChecker.checkObstacle(coordinates)) {
         break;
       }
       coordinates = command.execute(coordinates);
+
+      if (coordinates.getY() < 0) {
+        coordinates = coordinates.withY(Grid.gridOfMap.length - 1);
+      }
+      if (coordinates.getY() > Grid.gridOfMap.length-1) {
+        coordinates = coordinates.withY(coordinates.getY()*0);
+      }
+      if (coordinates.getX() < 0) {
+        coordinates = coordinates.withX(Grid.gridOfMap[0].length - 1);
+      }
+      if (coordinates.getX() > Grid.gridOfMap[0].length-1) {
+        coordinates = coordinates.withX(coordinates.getY()*0);
+      }
+
     }
 
+//  public Coordinates wrapAroundTheEdgesVertical(Coordinates coordinates){
+//    return switch ((int) coordinates.getY()){
+//      case -1 -> coordinates.withY(coordinates.getY()+Grid.gridOfMap.length);
+//      case 1 -> coordinates.withY(coordinates.getY()%Grid.gridOfMap.length);
+//      default -> throw new IllegalStateException("Unexpected value: " + (int) coordinates.getY());
+//    };
   }
 
 // 2.
